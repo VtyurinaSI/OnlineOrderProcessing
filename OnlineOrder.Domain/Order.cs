@@ -1,6 +1,4 @@
 ﻿using Stateless;
-using System.Diagnostics;
-using System.Xml.Linq;
 
 namespace OnlineOrder.Domain
 {
@@ -19,6 +17,7 @@ namespace OnlineOrder.Domain
         }
         private readonly StateMachine<OrderStatus, OrderTrigger> _fsm;
         private readonly List<(OrderTrigger Trigger, OrderStatus From, OrderStatus To, DateTime At)> _history = [];
+        public IReadOnlyCollection<(OrderTrigger Trigger, OrderStatus From, OrderStatus To, DateTime At)> History => _history.AsReadOnly();
         private List<OrderedItem> _items = [];
         public decimal Amount => _items.Sum(i => i.Price * i.Quantity);
         public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
