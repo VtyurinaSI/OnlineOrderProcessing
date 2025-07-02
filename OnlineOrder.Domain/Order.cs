@@ -12,20 +12,46 @@ namespace OnlineOrder.Domain
             _fsm = OrderStateMachine.Create(
                 () => Status,
                 s => { Status = s; UpdatedAt = DateTime.UtcNow; },
-                (trigger, from, to) => { _history.Add((trigger, from, to, DateTime.UtcNow)); Touch(); }
+                (trigger, from, to) => { _history.Add(new(trigger, from, to, DateTime.UtcNow)); Touch(); }
                 );
         }
+        public Order()
+        {
+
+            CustomerName = null!;
+            _fsm = OrderStateMachine.Create(
+                () => Status,
+                s => { Status = s; UpdatedAt = DateTime.UtcNow; },
+                (trigger, from, to) => { _history.Add(new(trigger, from, to, DateTime.UtcNow)); Touch(); }
+                );
+
+        }
         private readonly StateMachine<OrderStatus, OrderTrigger> _fsm;
-        private readonly List<(OrderTrigger Trigger, OrderStatus From, OrderStatus To, DateTime At)> _history = [];
-        public IReadOnlyCollection<(OrderTrigger Trigger, OrderStatus From, OrderStatus To, DateTime At)> History => _history.AsReadOnly();
+
+        private List<OrderStateChange> _history = [];
+
         private List<OrderedItem> _items = [];
-        public decimal Amount => _items.Sum(i => i.Price * i.Quantity);
+
+        public decimal Amount { get; set; }
+
         public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+
         public string CustomerName { get; private set; }
+
+        public IReadOnlyCollection<OrderStateChange> History
+        {
+            get => _history.AsReadOnly();
+            set => _history = value.ToList();
+        }
+
         public Guid Id { get; private set; } = Guid.NewGuid();
+
         public IReadOnlyCollection<OrderedItem> Items => _items.AsReadOnly();
+
         public OrderStatus Status { get; private set; } = OrderStatus.Created;
+
         public DateTime UpdatedAt { get; private set; } = DateTime.UtcNow;
+
         public void AddItem(OrderedItem item)
         {
             var existing = _items.FirstOrDefault(i => i.Name == item.Name && i.Price == item.Price);
@@ -33,8 +59,10 @@ namespace OnlineOrder.Domain
                 existing.IncreaseQuantity(item.Quantity);
             else
                 _items.Add(item);
+            Amount += item.Price * item.Quantity;
             Touch();
         }
+
         public bool CanCancel() => _fsm.CanFire(OrderTrigger.Cancel);
 
         public bool Cancel()
@@ -47,6 +75,7 @@ namespace OnlineOrder.Domain
         public bool CanDeliver() => _fsm.CanFire(OrderTrigger.Deliver);
 
         public bool CanPay() => _fsm.CanFire(OrderTrigger.Pay);
+
         public bool Deliver()
         {
             if (!CanDeliver()) return false;
@@ -74,8 +103,12 @@ namespace OnlineOrder.Domain
             if (toRemove.Count == 0) return false;
 
             foreach (var it in toRemove)
+            {
                 if (!it.DecreaseQuantity())
                     _items.Remove(it);
+
+                Amount -= it.Price;
+            }
             Touch();
             return true;
         }
@@ -83,6 +116,11 @@ namespace OnlineOrder.Domain
         public override string ToString()
             => $"Заказ {Id} для {CustomerName} - {Status} - Сумма: {Amount:C}, количество товаров: {_items.Sum(it => it.Quantity)}";
 
+        public void LoadHistory(IEnumerable<OrderStateChange> history)
+        {
+            _history.Clear();
+            _history.AddRange(history);
+        }
         private void Touch() => UpdatedAt = DateTime.UtcNow;
     }
 }

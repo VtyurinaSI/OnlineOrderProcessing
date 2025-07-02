@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOrder.Domain", "Onlin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOrder.Domain.Tests", "OnlineOrder.Domain.Tests\OnlineOrder.Domain.Tests.csproj", "{BC426093-853A-48AA-B675-CB7C8E60AA4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOrder.Infrastructure", "OnlineOrder.Infrastructure\OnlineOrder.Infrastructure.csproj", "{E1FF9850-DB0C-4D72-BA9A-01CC4AD6D537}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleDbTesting", "ConsoleApp1\ConsoleDbTesting.csproj", "{404B0257-6466-44BD-9DA8-A65FF4B90F9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{BC426093-853A-48AA-B675-CB7C8E60AA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC426093-853A-48AA-B675-CB7C8E60AA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC426093-853A-48AA-B675-CB7C8E60AA4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1FF9850-DB0C-4D72-BA9A-01CC4AD6D537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1FF9850-DB0C-4D72-BA9A-01CC4AD6D537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1FF9850-DB0C-4D72-BA9A-01CC4AD6D537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1FF9850-DB0C-4D72-BA9A-01CC4AD6D537}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404B0257-6466-44BD-9DA8-A65FF4B90F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404B0257-6466-44BD-9DA8-A65FF4B90F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404B0257-6466-44BD-9DA8-A65FF4B90F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404B0257-6466-44BD-9DA8-A65FF4B90F9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
