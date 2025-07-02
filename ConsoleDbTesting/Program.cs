@@ -45,7 +45,7 @@ namespace ConsoleApp1
 
             else
                 Console.WriteLine($"Loaded order {loaded.Id}, customer: {loaded.CustomerName}, status = {loaded.Status}, amount = {loaded?.Amount}");
-            
+
         }
         private static async Task Pay()
         {
