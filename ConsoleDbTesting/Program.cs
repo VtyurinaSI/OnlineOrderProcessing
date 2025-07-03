@@ -1,7 +1,7 @@
 ﻿using OnlineOrder.Domain;
 using OnlineOrder.Infrastructure;
 
-namespace ConsoleApp1
+namespace ConsoleDbTesting
 {
     internal class Program
     {
