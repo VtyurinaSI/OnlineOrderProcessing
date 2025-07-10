@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Npgsql;
 using OnlineOrder.Domain;
+using OnlineOrder.Domain.DTOs;
 
 namespace OnlineOrder.Infrastructure
 {

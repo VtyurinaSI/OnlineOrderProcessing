@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOrder.Infrastructure"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleDbTesting", "ConsoleDbTesting\ConsoleDbTesting.csproj", "{92D3089C-58B2-4EBA-A6C0-5D2B773180EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOrder.Application", "OnlineOrder.Application\OnlineOrder.Application.csproj", "{32AC8581-297C-48E1-A3D5-61148B2CA3CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{92D3089C-58B2-4EBA-A6C0-5D2B773180EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92D3089C-58B2-4EBA-A6C0-5D2B773180EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92D3089C-58B2-4EBA-A6C0-5D2B773180EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32AC8581-297C-48E1-A3D5-61148B2CA3CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32AC8581-297C-48E1-A3D5-61148B2CA3CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32AC8581-297C-48E1-A3D5-61148B2CA3CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32AC8581-297C-48E1-A3D5-61148B2CA3CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

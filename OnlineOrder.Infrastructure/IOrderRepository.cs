@@ -1,8 +1,9 @@
 ﻿using OnlineOrder.Domain;
+using OnlineOrder.Domain.DTOs;
 
 namespace OnlineOrder.Infrastructure
 {
-    internal interface IOrderRepository
+    public interface IOrderRepository
     {
         Task<Order?> GetAsync(Guid id);
         Task InsertAsync(Order order);

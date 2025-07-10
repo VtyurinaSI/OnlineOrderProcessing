@@ -1,4 +1,4 @@
-﻿namespace OnlineOrder.Domain
+﻿namespace OnlineOrder.Domain.DTOs
 {
     public record OrderStateChange
     (

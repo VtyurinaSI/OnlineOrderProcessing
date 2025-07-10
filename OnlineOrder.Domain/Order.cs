@@ -1,4 +1,5 @@
-﻿using Stateless;
+﻿using OnlineOrder.Domain.DTOs;
+using Stateless;
 
 namespace OnlineOrder.Domain
 {
