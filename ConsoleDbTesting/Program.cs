@@ -7,6 +7,8 @@ namespace ConsoleDbTesting
     {
         private static OrderRepository repo = null!;
         private static Order? order;
+        private static readonly CancellationTokenSource cts = new();
+        private static readonly CancellationToken token = cts.Token;
         static async Task Main()
         {
 
@@ -25,12 +27,11 @@ namespace ConsoleDbTesting
         {
             await Task.Delay(2000);
             order!.Deliver();
-            await repo.UpdateAsync(order);
-
+            await repo.UpdateAsync(order, token);
         }
         private static async Task TakeHistory()
         {
-            var history = await repo.GetHistoryAsync(order!.Id);
+            var history = await repo.GetHistoryAsync(order!.Id, token);
             Console.WriteLine("History:");
             foreach (var h in history)
             {
@@ -39,7 +40,7 @@ namespace ConsoleDbTesting
         }
         private static async Task FindOrder()
         {
-            var loaded = await repo.GetAsync(order!.Id);
+            var loaded = await repo.GetAsync(order!.Id, token);
             if (loaded == null)
                 Console.WriteLine("Order not found!");
 
@@ -50,14 +51,14 @@ namespace ConsoleDbTesting
         private static async Task Pay()
         {
             order!.Pay();
-            await repo.UpdateAsync(order);
+            await repo.UpdateAsync(order, token);
         }
         private static async Task MakeOrder()
         {
             repo = new();
             order = new("Соня");
             order.AddItem(new("Колбаса", 150m, 10));
-            await repo.InsertAsync(order);
+            await repo.InsertAsync(order, token);
             Console.WriteLine($"Inserted order {order.Id}, status = {order.Status}, amount = {order?.Amount}");
         }
     }

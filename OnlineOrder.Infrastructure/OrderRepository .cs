@@ -1,15 +1,15 @@
 ﻿using Dapper;
 using Npgsql;
+using OnlineOrder.Application.Contracts;
 using OnlineOrder.Domain;
 using OnlineOrder.Domain.DTOs;
-
 namespace OnlineOrder.Infrastructure
 {
     public class OrderRepository : IOrderRepository
     {
         private readonly string _cs = DbConfig.SqlConnectionString;
         private NpgsqlConnection CreateConn() => new(_cs);
-        public async Task<Order?> GetAsync(Guid id)
+        public async Task<Order?> GetAsync(Guid id, CancellationToken token)
         {
             const string sql = @"
               SELECT 
@@ -19,13 +19,13 @@ namespace OnlineOrder.Infrastructure
               WHERE id = @Id;
             ";
             using var db = CreateConn();
-            await db.OpenAsync();
+            await db.OpenAsync(token);
             using var tx = db.BeginTransaction();
             var ord = await db.QuerySingleOrDefaultAsync<Order>(sql, new { Id = id });
             return ord;
         }
 
-        public async Task InsertAsync(Order order)
+        public async Task InsertAsync(Order order, CancellationToken token)
         {
 
             const string insOrder = @"
@@ -38,7 +38,7 @@ namespace OnlineOrder.Infrastructure
             ";
 
             using var db = CreateConn();
-            await db.OpenAsync();
+            await db.OpenAsync(token);
             using var tx = db.BeginTransaction();
             await db.ExecuteAsync(insOrder, new
             {
@@ -64,7 +64,7 @@ namespace OnlineOrder.Infrastructure
             tx.Commit();
         }
 
-        public async Task UpdateAsync(Order order)
+        public async Task UpdateAsync(Order order, CancellationToken token)
         {
             const string updOrder = @"
       UPDATE orders
@@ -83,7 +83,7 @@ namespace OnlineOrder.Infrastructure
     ";
 
             using var db = CreateConn();
-            await db.OpenAsync();
+            await db.OpenAsync(token);
             using var tx = db.BeginTransaction();
 
             await db.ExecuteAsync(updOrder, new
@@ -109,7 +109,7 @@ namespace OnlineOrder.Infrastructure
             tx.Commit();
         }
 
-        public async Task<IEnumerable<OrderStateChange>> GetHistoryAsync(Guid orderId)
+        public async Task<IEnumerable<OrderStateChange>> GetHistoryAsync(Guid orderId, CancellationToken token)
         {
 
             const string sql = @"
@@ -123,7 +123,7 @@ namespace OnlineOrder.Infrastructure
                 ORDER BY changed_at;
             ";
             using var db = CreateConn();
-            await db.OpenAsync();
+            await db.OpenAsync(token);
             using var tx = db.BeginTransaction();
             var list = await db.QueryAsync<OrderStateChange>(sql, new { OrderId = orderId });
             return list.ToList();

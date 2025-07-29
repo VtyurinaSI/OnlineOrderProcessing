@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OnlineOrder.Domain\OnlineOrder.Domain.csproj" />
+    <ProjectReference Include="..\OnlineOrder.Application.Contracts\OnlineOrder.Application.Contracts.csproj" />
+    <ProjectReference Include="..\OnlineOrder.Application\OnlineOrder.Application.csproj" />
+    <ProjectReference Include="..\OnlineOrder.Domain\OnlineOrder.Domain.csproj" />	  
   </ItemGroup>
 
 </Project>
