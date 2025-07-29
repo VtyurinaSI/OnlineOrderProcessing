@@ -1,0 +1,6 @@
+@OnlineOrder.Web.Swagger_HostAddress = http://localhost:5134
+
+GET {{OnlineOrder.Web.Swagger_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
